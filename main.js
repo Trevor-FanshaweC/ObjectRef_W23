@@ -1,48 +1,47 @@
 console.log('js is wired!');
 
-let theButton = document.querySelector('button'),
+let theButtons = document.querySelectorAll('button'),
     theList = document.querySelector('ul');
 
-// rules for working with / creating objects
-
-// 1. needs a name, wrapped in curly brackets
-// 2. commas between keys
-
-let coffeeCup = {
-    // descriptive keys: properties
-    color : 'white', // String
-    lidColor : 'grey', // String
-    height : 20, // Number
-    contents : 'cappucino', // String
-
-    // functional keys: methods (things an object can do)
-    drink : () => { 
-        console.log('sippy sip');
-        console.log('i have sipped');
+let profs = {
+    marco : {
+        name: 'Marco',
+        role: 'Coordinator',
+        nickname: 'marco',
+        bio: 'some interesting info about marco',
+        avatar: 'marco.jpg'
     },
 
-    mix : () => console.log('add cream, sugar, etc')
+    joe : {
+        name: 'Joe',
+        role: 'Digital Media Theory and Project Management',
+        nickname: 'teddy bear',
+        bio: 'some interesting info about joe',
+        avatar: 'joe.jpg'
+    },
+
+    john : {
+        name: 'John',
+        role: 'Motion Prof',
+        nickname: 'John',
+        bio: 'some interesting info about John',
+        avatar: 'john.jpg'
+    }    
 };
 
 // functions go here
-function listProps() {
-    if (theList.children.length > 0) { // if the list is already full
-        // debugger; // then empty it
-        theList.innerHTML = "";
-        // and exit the rest of the function
-        return;
-    }
+function listProf() {
+    // empty out the list
+    theList.innerHTML = "";
+    
+    // and then repopulate it with the correct data
+    for (item in profs[this.dataset.prof]) {
+        let newItem = document.createElement('li');
 
-    for (prop in coffeeCup) { // prop is short for property
-        console.log(coffeeCup[prop]);
-
-        let newProp = document.createElement('li'); // <li></li>
-        newProp.textContent = coffeeCup[prop];
-        newProp.classList.add('red-list');
-
-        theList.appendChild(newProp);
-    }
+        newItem.textContent = profs[this.dataset.prof][item];
+        theList.appendChild(newItem);
+    }    
 }
 
 // add event handling here
-theButton.addEventListener('click', listProps);
+theButtons.forEach(profButton => profButton.addEventListener('click', listProf));
